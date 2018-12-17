@@ -25,23 +25,23 @@ Part 1:
 
 Part 2:
 In this part, our software has 3 main functions, each implements a different function with the following structure:
-  —-— main_4_winpoint.py
-  |—————- match_samples.py
-  |------ get_winpoint.py
-  |------ get_telemetry_ur.py
-  |------ draw_pic.py
+  —-— main_4_winpoint.py                                                                                                       
+  |------ match_samples.py                                                                                                     
+  |------ get_winpoint.py                                                                                                     
+  |------ get_telemetry_ur.py                                                                                                 
+  |------ draw_pic.py                                                                                                         
+                                                                                                                               
+  --- main_4_winpoint.py                                                                                                       
+  |------ match_samples.py                                                                                                     
+  |------ get_winpoint.py                                                                                                     
+  |------ get_telemetry_url.py                                                                                                 
+  |------ draw_pic.py                                                                                                         
 
-  --- main_4_winpoint.py
-  |------ match_samples.py
-  |------ get_winpoint.py
-  |------ get_telemetry_url.py
-  |------ draw_pic.py
-
-  --- main_4_winpoint.py
-  |------ match_samples.py
-  |------ get_winpoint.py
-  |------ get_telemetry_url.py
-  |------ draw_pic.py
+  --- main_4_winpoint.py                                                                                                       
+  |------ match_samples.py                                                                                                     
+  |------ get_winpoint.py                                                                                                     
+  |------ get_telemetry_url.py                                                                                                 
+  |------ draw_pic.py                                                                                                         
 
 By running 3 main functions(e.g. python3 main_4_winpoint.py), user can get corresponding results.
 Note that get match id (in match_samples.py) have 3 different modes, see comments to decide which mode to use, 
