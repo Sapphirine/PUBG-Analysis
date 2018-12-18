@@ -6,7 +6,7 @@ Name: Yihang Ding (yd2459), Yijie Wang (yw3156), Yun Wang (yw3180)
 Our Project consists of 3 parts:                                                                                               
   1. Winplace Prediction                                                                                                       
   2. Winners' Pattern                                                                                                         
-  3. Interactive Results (weisite)                                                                                             
+  3. Interactive Results (Website)                                                                                             
 
    In the first part we use the publicly available basic game data from kaggle, such as kills and ride distance, 
     to find relationship between different kinds of data and win place, and to predict the win place based on the data. 
@@ -20,7 +20,7 @@ Our Project consists of 3 parts:
     
 THe three parts are organized in three seperate folders, each with a ReadMe.txt
 
-Part 1:
+Part 1:                                                                                                                       
   This part includes 4 Jupiter files, containing the full progress from data cleaning to machine learning.
 
 •	anomalies_detection.ipynb                                                                                                   
@@ -58,7 +58,7 @@ By running 3 main functions(e.g. python3 main_4_winpoint.py), user can get corre
 Note that get match id (in match_samples.py) have 3 different modes, see comments to decide which mode to use, 
   by default all 3 main functions use random matches sampled up to 14 days earlier.
 
-Part 3:
+Part 3:                                                                                                                       
   This server holds all regression models and communicate with webpage through http request.
   To Run it, you need to configure your IP.
   First, find your external IP now and change the IP address "35.196.140.158" to yours in line 260 of the file "test.html" ##Run the server Run "regression_model_server.ipynb", if an error:"Address already in use" occurs, you need to change the port 6060 to another port.
