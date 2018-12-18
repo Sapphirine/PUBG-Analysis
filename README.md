@@ -1,9 +1,9 @@
 # PUBG-Analysis
-18 fall big data final project, yd2459, yw3156, yw3180
-ProjectID: 201812-25
-Name: Yihang Ding (yd2459), Yijie Wang (yw3156), Yun Wang (yw3180)
+18 fall big data final project, yd2459, yw3156, yw3180                                                                         
+ProjectID: 201812-25                                                                                                           
+Name: Yihang Ding (yd2459), Yijie Wang (yw3156), Yun Wang (yw3180)                                                             
 
-Our Project consists of 3 parts:
+Our Project consists of 3 parts:                                                                                               
   1. Winplace Prediction                                                                                                       
   2. Winners' Pattern                                                                                                         
   3. Interactive Results (weisite)                                                                                             
