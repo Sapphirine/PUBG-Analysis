@@ -39,7 +39,7 @@ In this part, our software has 3 main functions, each implements a different fun
   —-— main_4_winpoint.py                                                                                                       
   |------ match_samples.py                                                                                                     
   |------ get_winpoint.py                                                                                                     
-  |------ get_telemetry_ur.py                                                                                                 
+  |------ get_telemetry_url.py                                                                                                 
   |------ draw_pic.py                                                                                                         
                                                                                                                                
   --- main_4_winpoint.py                                                                                                       
