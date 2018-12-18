@@ -4,9 +4,9 @@ ProjectID: 201812-25
 Name: Yihang Ding (yd2459), Yijie Wang (yw3156), Yun Wang (yw3180)
 
 Our Project consists of 3 parts:
-  1. Winplace Prediction
-  2. Winners' Pattern 
-  3. Interactive Results (weisite)
+  1. Winplace Prediction                                                                                                       
+  2. Winners' Pattern                                                                                                         
+  3. Interactive Results (weisite)                                                                                             
 
    In the first part we use the publicly available basic game data from kaggle, such as kills and ride distance, 
     to find relationship between different kinds of data and win place, and to predict the win place based on the data. 
@@ -23,10 +23,10 @@ THe three parts are organized in three seperate folders, each with a ReadMe.txt
 Part 1:
   This part includes 4 Jupiter files, containing the full progress from data cleaning to machine learning.
 
-•	anomalies_detection.ipynb
-•	win_place_prediction.ipynb
-•	EDA.ipynd
-•	make_subset.ipynb
+•	anomalies_detection.ipynb                                                                                                   
+•	win_place_prediction.ipynb                                                                                                   
+•	EDA.ipynd                                                                                                                   
+•	make_subset.ipynb                                                                                                           
 
 make_subset is building a subset from origin file to pretest our algorithm.
 anomalies_detection find all the anomalies data in the dataset from several dimensions. 
