@@ -1,0 +1,365 @@
+<html><head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    
+    <style type="text/css">
+      body {
+        font: 10px sans-serif;
+      }
+
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+      .bar {
+        fill: rgb(238, 199, 126);
+      }
+
+      .bar:hover {
+        fill: rgb(186, 164, 248) ;
+      }
+
+      .x.axis path {
+        display: none;
+      }
+
+      .d3-tip {
+        line-height: 1;
+        font-weight: bold;
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 2px;
+      }
+
+      /* Creates a small triangle extender for the tooltip */
+      .d3-tip:after {
+        box-sizing: border-box;
+        display: inline;
+        font-size: 10px;
+        width: 100%;
+        line-height: 1;
+        color: rgba(0, 0, 0, 0.8);
+        content: "\25BC";
+        position: absolute;
+        text-align: center;
+      }
+
+      /* Style northward tooltips differently */
+      .d3-tip.n:after {
+        margin: -1px 0 0 0;
+        top: 100%;
+        left: 0;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .slidecontainer {
+        width: 100%; /* Width of the outside container */
+      }
+
+      /* The slider itself */
+      .slider {
+        -webkit-appearance: none;  /* Override default CSS styles */
+        appearance: none;
+        width: 960; /* Full-width */
+        height: 25px; /* Specified height */
+        background: #d3d3d3; /* Grey background */
+        outline: none; /* Remove outline */
+        opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+        -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+        transition: opacity .2s;
+      }
+
+      /* Mouse-over effects */
+      .slider:hover {
+        opacity: 1; /* Fully shown on mouse-over */
+      }
+
+      /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */ 
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none; /* Override default look */
+        appearance: none;
+        width: 25px; /* Set a specific slider handle width */
+        height: 25px; /* Slider handle height */
+        background: #4CAF50; /* Green background */
+        cursor: pointer; /* Cursor on hover */
+      }
+
+      .slider::-moz-range-thumb {
+        width: 25px; /* Set a specific slider handle width */
+        height: 25px; /* Slider handle height */
+        background: #4CAF50; /* Green background */
+        cursor: pointer; /* Cursor on hover */
+      }
+    </style>
+
+
+
+    
+    
+  
+
+
+ 
+  </head>
+  <body>
+      
+    <svg></svg>
+
+    <div class="slidecontainer" width= 960>
+      
+      <div id="assists_value" >assists</div>
+      <input type="range" min="0" max="30" step="1" value="0" class="slider" id="assists">
+      <div id="boosts_value">boosts</div>
+      <input type="range" min="0" max="25" step="1" value="0" class="slider" id="boosts">
+      <div id="damageDealt_value" >damageDealt</div>
+      <input type="range" min="0" max="7000" step="1" value="0" class="slider" id="damageDealt">
+      <div id="DBNOs_value">DBNOs</div>
+      <input type="range" min="0" max="60" step="1" value="0" class="slider" id="DBNOs">
+      <div id="headshotKills_value" >headshotKills</div>
+      <input type="range" min="0" max="50" step="1" value="0" class="slider" id="headshotKills">
+      <div id="heals_value">heals</div>
+      <input type="range" min="0" max="75" step="1" value="0" class="slider" id="heals">
+      <div id="killPlace_value" >killPlace</div>
+      <input type="range" min="0" max="100" step="1" value="0" class="slider" id="killPlace">
+      <div id="kills_value">kills</div>
+      <input type="range" min="0" max="60" step="1" value="0" class="slider" id="kills">
+      <div id="killStreaks_value" >killStreaks</div>
+      <input type="range" min="0" max="15" step="1" value="0" class="slider" id="killStreaks">
+      <div id="longestKill_value">longestKill</div>
+      <input type="range" min="0" max="1000" step="1" value="0" class="slider" id="longestKill">
+      <div id="revives_value">revives</div>
+      <input type="range" min="0" max="20" step="1" value="0" class="slider" id="revives">
+      <div id="rideDistance_value">rideDistance</div>
+      <input type="range" min="0" max="42000" step="1" value="0" class="slider" id="rideDistance">
+      <div id="walkDistance_value">walkDistance</div>
+      <input type="range" min="0" max="16000" step="1" value="0" class="slider" id="walkDistance">
+      <div id="weaponsAcquired_value">weaponsAcquired</div>
+      <input type="range" min="0" max="150" step="1" value="0" class="slider" id="weaponsAcquired">
+
+    </div>
+
+    <script type="text/javascript">
+      var assists = document.getElementById("assists");
+      var assists_value = document.getElementById("assists_value");
+      var boosts = document.getElementById("boosts");
+      var boosts_value = document.getElementById("boosts_value");
+      var damageDealt = document.getElementById("damageDealt");
+      var damageDealt_value = document.getElementById("damageDealt_value");
+      var DBNOs = document.getElementById("DBNOs");
+      var DBNOs_value = document.getElementById("DBNOs_value");
+      var headshotKills = document.getElementById("headshotKills");
+      var headshotKills_value = document.getElementById("headshotKills_value");
+      var heals = document.getElementById("heals");
+      var heals_value = document.getElementById("heals_value");
+      var killPlace = document.getElementById("killPlace");
+      var killPlace_value = document.getElementById("killPlace_value");
+      var kills = document.getElementById("kills");
+      var kills_value = document.getElementById("kills_value");
+      var killStreaks = document.getElementById("killStreaks");
+      var killStreaks_value = document.getElementById("killStreaks_value");
+      var longestKill = document.getElementById("longestKill");
+      var longestKill_value = document.getElementById("longestKill_value");
+      var revives = document.getElementById("revives");
+      var revives_value = document.getElementById("revives_value");
+      var rideDistance = document.getElementById("rideDistance");
+      var rideDistance_value = document.getElementById("rideDistance_value");
+      var walkDistance = document.getElementById("walkDistance");
+      var walkDistance_value = document.getElementById("walkDistance_value");
+      var weaponsAcquired = document.getElementById("weaponsAcquired");
+      var weaponsAcquired_value = document.getElementById("weaponsAcquired_value");
+      var input_feature = [0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+      assists.oninput = function() {
+
+        assists_value.innerHTML = "assists: "+this.value.toString();
+        input_feature[0] = this.value;
+        get_prediction(input_feature)
+
+      }
+      boosts.oninput = function() {
+        boosts_value.innerHTML = "boosts: "+this.value.toString();
+        input_feature[1] = this.value;
+        get_prediction(input_feature)
+      }
+      damageDealt.oninput = function() {
+        damageDealt_value.innerHTML = "damageDealt: "+this.value.toString();
+        input_feature[2] = this.value;
+        get_prediction(input_feature)
+      }
+      DBNOs.oninput = function() {
+        DBNOs_value.innerHTML = "DBNOs: "+this.value.toString();
+        input_feature[3] = this.value;
+        get_prediction(input_feature)
+      }
+      headshotKills.oninput = function() {
+        headshotKills_value.innerHTML = "headshotKills: "+this.value.toString();
+        input_feature[4] = this.value;
+        get_prediction(input_feature)
+      }
+      heals.oninput = function() {
+        heals_value.innerHTML = "heals: "+this.value.toString();
+        input_feature[5] = this.value;
+        get_prediction(input_feature)
+      }
+      killPlace.oninput = function() {
+        killPlace_value.innerHTML = "killPlace: "+this.value.toString();
+        input_feature[6] = this.value;
+        get_prediction(input_feature)
+      }
+      kills.oninput = function() {
+        kills_value.innerHTML = "kills: "+this.value.toString();
+        input_feature[7] = this.value;
+        get_prediction(input_feature)
+      }
+      killStreaks.oninput = function() {
+        killStreaks_value.innerHTML = "killStreaks: "+this.value.toString();
+        input_feature[8] = this.value;
+        get_prediction(input_feature)
+      }
+      longestKill.oninput = function() {
+        longestKill_value.innerHTML = "longestKill: "+this.value.toString();
+        input_feature[9] = this.value;
+        get_prediction(input_feature)
+      }
+      revives.oninput = function() {
+        revives_value.innerHTML = "revives: "+this.value.toString();
+        input_feature[10] = this.value;
+        get_prediction(input_feature)
+      }
+      rideDistance.oninput = function() {
+        rideDistance_value.innerHTML = "rideDistance: "+this.value.toString();
+        input_feature[11] = this.value;
+        get_prediction(input_feature)
+      }
+      walkDistance.oninput = function() {
+        walkDistance_value.innerHTML = "walkDistance: "+this.value.toString();
+        input_feature[12] = this.value;
+        get_prediction(input_feature)
+      }
+      weaponsAcquired.oninput = function() {
+        weaponsAcquired_value.innerHTML = "weaponsAcquired: "+this.value.toString();
+        input_feature[13] = this.value;
+        get_prediction(input_feature)
+      }
+ 
+      function get_prediction(input_feature){
+        var send_string = input_feature[0] + "," + input_feature[1] + "," + input_feature[2] + ","  ;
+        send_string = send_string + input_feature[3] + "," + input_feature[4] + "," + input_feature[5] + "," ;
+        send_string = send_string + input_feature[6] + "," + input_feature[7] + "," + input_feature[8] + "," ;
+        send_string = send_string + input_feature[9] + "," + input_feature[10] + "," + input_feature[11] + "," ;
+        send_string = send_string + input_feature[12] + "," + input_feature[13] ;
+        const Http = new XMLHttpRequest();
+        const url='http://35.196.140.158:6060';
+        Http.open("POST", url);
+        //Http.send("0,0,0,0,0,0,0,0,0,0,0,0,0,0");
+        console.log(send_string);
+        console.log(input_feature[0]);
+        Http.send(send_string);
+        Http.onreadystatechange=(e)=>{
+          console.log(Http.responseText)
+          if(Http.responseText != ""){
+            var result = Http.responseText;
+            
+            //data = [parseFloat(result.split(",")[0]),parseFloat(result.split(",")[1]),parseFloat(result.split(",")[2])]
+            data = [{"method":"Linear Regression","value":parseFloat(result.split(",")[0])},{"method":"Decision Tree","value":parseFloat(result.split(",")[1])},{"method":"Gradient-boosted tree","value":parseFloat(result.split(",")[2])}]
+            console.log(data)
+            var margin = {top: 40, right: 20, bottom: 30, left: 40},
+                width = 960 - margin.left - margin.right,
+                height = 500 - margin.top - margin.bottom;
+
+            var x = d3.scale.ordinal()
+                .rangeRoundBands([0, width], .1);
+
+            var y = d3.scale.linear()
+                .range([height, 0]);
+
+            var xAxis = d3.svg.axis()
+                .scale(x)
+                .orient("bottom");
+
+            var yAxis = d3.svg.axis()
+                .scale(y)
+                .orient("left")
+                .ticks(10, "");
+
+            var tip = d3.tip()
+            d3.select("tip").remove();
+            tip = d3.tip()
+              .attr('class', 'd3-tip')
+              .offset([-10, 0])
+              .html(function(d) {
+                return "<strong>Win Place Percentage:</strong> <span style='color:white'>" + d.value + "</span>";
+              })
+            var svg = d3.select("svg")
+            svg.selectAll("*").remove();
+            svg = d3.select("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            svg.call(tip);
+
+
+
+            x.domain(data.map(function(d) { return d.method; }));
+            y.domain([0, 1]);
+
+            svg.append("g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + height + ")")
+              .call(xAxis);
+
+            svg.append("g")
+              .attr("class", "y axis")
+              .call(yAxis)
+            .append("text")
+              .attr("transform", "rotate(-90)")
+              .attr("y", -36)
+              .attr("dy", ".71em")
+              .style("text-anchor", "end")
+              .text("Win Place Percentage");
+
+            svg.selectAll(".bar")
+              .data(data)
+            .enter().append("rect")
+              .attr("class", "bar")
+              .attr("x", function(d) { return x(d.method); })
+              .attr("width", x.rangeBand())
+              .attr("y", function(d) { return y(d.value); })
+              .attr("height", function(d) { return height - y(d.value); })
+              .on('mouseover', tip.show)
+              .on('mouseout', tip.hide);
+
+
+            // function type(d) {
+            //   d.value = +d.value;
+            //   return d;
+            // }
+          }
+
+          
+        }
+
+        
+
+      }
+      
+    </script>
+    <script type = "text/javascript">
+
+
+    </script>
+  
+  </body>
+  </html>
+  
+  
