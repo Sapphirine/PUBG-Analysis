@@ -21,6 +21,17 @@ Our Project consists of 3 parts:
 THe three parts are organized in three seperate folders, each with a ReadMe.txt
 
 Part 1:
+  This part includes 4 Jupiter files, containing the full progress from data cleaning to machine learning.
+
+•	anomalies_detection.ipynb
+•	win_place_prediction.ipynb
+•	EDA.ipynd
+•	make_subset.ipynb
+
+make_subset is building a subset from origin file to pretest our algorithm.
+anomalies_detection find all the anomalies data in the dataset from several dimensions. 
+EDA is exploratory data analysis focus on discover data insight.
+win_place_detection helps to predict the players’ win place in this game, which includes linear regression, decision tree and gradient boosted tree.
 
 
 Part 2:
@@ -48,3 +59,7 @@ Note that get match id (in match_samples.py) have 3 different modes, see comment
   by default all 3 main functions use random matches sampled up to 14 days earlier.
 
 Part 3:
+  This server holds all regression models and communicate with webpage through http request.
+  To Run it, you need to configure your IP.
+  First, find your external IP now and change the IP address "35.196.140.158" to yours in line 260 of the file "test.html" ##Run the server Run "regression_model_server.ipynb", if an error:"Address already in use" occurs, you need to change the port 6060 to another port.
+  If you can see "running server...", the server runs successfully. ##Browser setting You'd better use Chrome to open the webpage. If something is wrong, go developer tools to see error report. If there is any CORS error, you need to install an chrome extension called "Allow-Control-Allow-Origin". ##Have A Try then you can change sliders to see prediction result!
